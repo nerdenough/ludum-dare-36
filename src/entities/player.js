@@ -11,7 +11,7 @@ class Player extends Phaser.Sprite {
     this.animations.add('idle', [0, 1], true);
     this.animations.add('run', [5, 6, 7, 8], true);
     this.anchor.setTo(0.4);
-    this.scale.setTo(this.sf);
+    this.scale.setTo(-this.sf, this.sf);
 
     // Physics
     this.game.physics.enable(this, Phaser.Physics.ARCADE);

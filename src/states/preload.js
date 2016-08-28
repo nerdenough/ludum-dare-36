@@ -11,8 +11,9 @@ class Preload {
     game.load.image('bullet', '/assets/entities/bullet.png');
     game.load.image('platform', '/assets/platforms/platform.png');
 
-    game.load.tilemap('map', '/assets/map/map.csv');
-    game.load.image('tiles', '/assets/map/spritesheet.png');
+    game.load.tilemap('map', '/assets/map/map.json', null,
+      Phaser.Tilemap.TILED_JSON);
+    game.load.image('tiles', '/assets/map/tiles.png');
 
     game.load.start();
   }

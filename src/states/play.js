@@ -9,7 +9,7 @@ class Play {
 
     // Player
     let x = game.world.centerX;
-    let y = game.world.centerY;
+    let y = game.world.height - 300;
     this.player = new Player(game, x, y, 'player');
     this.game.add.existing(this.player);
 
@@ -50,7 +50,7 @@ class Play {
     this.layer.resizeWorld();
 
     // Collisions
-    this.map.setCollision(0);
+    this.map.setCollisionBetween(1, 4);
   }
 
   update() {
