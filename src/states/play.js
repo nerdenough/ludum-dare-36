@@ -1,5 +1,9 @@
 class Play {
   create() {
+    // Platforms
+    this.platform = new Platform(game, game.world.centerX, 600, 'platform');
+    this.game.add.existing(this.platform);
+
     // Player
     let x = game.world.centerX;
     let y = game.world.centerY;
@@ -22,6 +26,8 @@ class Play {
   }
 
   update() {
+    game.physics.arcade.collide(this.player, this.platform);
+
     this.player.stop();
 
     if (this.controls.left.isDown) {
