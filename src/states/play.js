@@ -10,6 +10,16 @@ class Play {
     this.player = new Player(game, x, y, 'player');
     this.game.add.existing(this.player);
 
+    // Artifact
+    let artifactConfig = {
+      game: game,
+      x: game.world.centerX,
+      y: 40,
+      asset: 'artifact'
+    };
+    this.artifact = new Artifact(artifactConfig);
+    this.game.add.existing(this.artifact);
+
     // Camera
     game.camera.follow(this.player);
 
@@ -26,20 +36,36 @@ class Play {
   }
 
   update() {
-    game.physics.arcade.collide(this.player, this.platform);
-
     this.player.stop();
 
-    if (this.controls.left.isDown) {
-      this.player.moveLeft();
-    }
+    if (this.player.alive) {
+      game.physics.arcade.collide(this.player, this.platform);
+      game.physics.arcade.overlap(this.artifact.bullets, this.player,
+        this.damagePlayer, null, this);
 
-    if (this.controls.right.isDown) {
-      this.player.moveRight();
-    }
 
-    if (this.controls.spacebar.isDown) {
-      this.player.jump();
+      if (this.controls.left.isDown) {
+        this.player.moveLeft();
+      }
+
+      if (this.controls.right.isDown) {
+        this.player.moveRight();
+      }
+
+      if (this.controls.spacebar.isDown) {
+        this.player.jump();
+      }
+
+      if (this.game.time.now > this.artifact.lastBullet) {
+        this.artifact.lastBullet = this.game.time.now
+          + this.artifact.bulletDelay;
+        this.artifact.shoot(this.player);
+      }
     }
+  }
+
+  damagePlayer() {
+    this.player.health -= 2;
+    console.log(this.player.health);
   }
 }

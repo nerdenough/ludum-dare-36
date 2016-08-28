@@ -2,6 +2,8 @@ class Player extends Phaser.Sprite {
   constructor(game, x, y, asset) {
     super(game, x, y, asset);
     this.game = game;
+    this.health = 100;
+    this.alive = true;
     this.velX = 500;
 
     // Sprite
@@ -12,6 +14,12 @@ class Player extends Phaser.Sprite {
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.body.gravity.y = 4000;
     this.body.collideWorldBounds = true;
+  }
+
+  update() {
+    if (this.health <= 0) {
+      this.alive = false;
+    }
   }
 
   moveLeft() {
