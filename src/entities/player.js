@@ -7,6 +7,8 @@ class Player extends Phaser.Sprite {
     this.alive = true;
     this.velX = 500;
     this.sf = 3;
+    this.flashing = false;
+    this.flashTimer = 0;
 
     // Sprite
     this.animations.add('idle', [0, 1], true);
@@ -25,6 +27,11 @@ class Player extends Phaser.Sprite {
   update() {
     if (this.health <= 0) {
       this.alive = false;
+    }
+
+    if (this.flashing && this.game.time.now > this.flashTimer) {
+      this.flashing = false;
+      this.tint = 0xffffffff;
     }
   }
 
@@ -46,5 +53,11 @@ class Player extends Phaser.Sprite {
     if (this.body.touching.down || this.body.onFloor()) {
       this.body.velocity.y = -1000;
     }
+  }
+
+  flash() {
+    this.flashing = true;
+    this.flashTimer = this.game.time.now + 1000;
+    this.tint = 0xff808080;
   }
 }

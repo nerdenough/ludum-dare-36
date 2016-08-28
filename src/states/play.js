@@ -109,6 +109,10 @@ class Play {
 
   damagePlayer(player, bullet) {
     bullet.kill();
-    this.player.health -= 2;
+
+    if (!player.flashing) {
+      player.flash();
+      this.player.health -= 10;
+    }
   }
 }
