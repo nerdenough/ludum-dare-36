@@ -5,7 +5,6 @@ class Artifact extends Phaser.Sprite {
     this.bulletDelay = 200;
     this.lastBullet = 0;
 
-
     // Sprite
     this.anchor.setTo(0.5);
     this.scale.setTo(1);
@@ -13,7 +12,6 @@ class Artifact extends Phaser.Sprite {
 
     // Physics
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
-    this.body.velocity.y = -100;
     this.body.collideWorldBounds = true;
   }
 

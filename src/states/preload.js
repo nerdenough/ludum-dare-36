@@ -6,14 +6,19 @@ class Preload {
 
     this.loadingText = game.add.text(32, 32, 'Loading...', {fill: '#fff'});
 
+    // Sprites
     game.load.spritesheet('player', '/assets/entities/player/player.png', 34, 31);
     game.load.image('artifact', '/assets/entities/artifact.png');
     game.load.image('bullet', '/assets/entities/bullet.png');
     game.load.image('platform', '/assets/platforms/platform.png');
 
+    // Map
     game.load.tilemap('map', '/assets/map/map.json', null,
       Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', '/assets/map/tiles.png');
+
+    // HUD
+    game.load.image('avatar', '/assets/hud/avatar.png');
 
     game.load.start();
   }

@@ -1,8 +1,9 @@
 class Player extends Phaser.Sprite {
-  constructor(game, x, y, asset) {
+  constructor({game, x, y, asset}) {
     super(game, x, y, asset);
     this.game = game;
     this.health = 100;
+    this.deathAnimationPlayed = false;
     this.alive = true;
     this.velX = 500;
     this.sf = 3;
@@ -10,6 +11,7 @@ class Player extends Phaser.Sprite {
     // Sprite
     this.animations.add('idle', [0, 1], true);
     this.animations.add('run', [5, 6, 7, 8], true);
+    this.animations.add('death', [10, 11, 12, 13, 14], true);
     this.anchor.setTo(0.4);
     this.scale.setTo(-this.sf, this.sf);
 

@@ -8,20 +8,31 @@ class Play {
     this.game.add.existing(this.platform);
 
     // Player
-    let x = game.world.centerX;
-    let y = game.world.height - 300;
-    this.player = new Player(game, x, y, 'player');
+    let playerConfig = {
+      game: game,
+      x: game.world.centerX,
+      y: game.world.height - 300,
+      asset: 'player'
+    };
+    this.player = new Player(playerConfig);
     this.game.add.existing(this.player);
 
     // Artifact
     let artifactConfig = {
       game: game,
       x: game.world.centerX,
-      y: 40,
+      y: game.world.height - 700,
       asset: 'artifact'
     };
     this.artifact = new Artifact(artifactConfig);
     this.game.add.existing(this.artifact);
+
+    // HUD
+    let hudConfig = {
+      game: game,
+      player: this.player
+    };
+    this.hud = new Hud(hudConfig);
 
     // Camera
     game.camera.follow(this.player);
@@ -84,14 +95,20 @@ class Play {
   }
 
   render() {
-    if (this.controls.left.isDown || this.controls.right.isDown) {
-      this.player.animations.play('run', 12, true);
-    } else {
-      this.player.animations.play('idle', 2, true);
+    if (this.player.alive) {
+      if (this.controls.left.isDown || this.controls.right.isDown) {
+        this.player.animations.play('run', 12, true);
+      } else {
+        this.player.animations.play('idle', 2, true);
+      }
+    } else if (!this.player.deathAnimationPlayed) {
+      this.player.deathAnimationPlayed = true;
+      this.player.animations.play('death', 12, false);
     }
   }
 
-  damagePlayer() {
+  damagePlayer(player, bullet) {
+    bullet.kill();
     this.player.health -= 2;
   }
 }

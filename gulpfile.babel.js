@@ -9,6 +9,7 @@ import concat from 'gulp-concat';
 const files = [
   './src/objects/*.js',
   './src/entities/*.js',
+  './src/hud/*.js',
   './src/states/*.js',
   './src/game.js'
 ];
