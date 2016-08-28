@@ -8,6 +8,8 @@ class Player extends Phaser.Sprite {
     this.sf = 3;
 
     // Sprite
+    this.animations.add('idle', [0, 1], true);
+    this.animations.add('run', [5, 6, 7, 8], true);
     this.anchor.setTo(0.5);
     this.scale.setTo(this.sf);
 

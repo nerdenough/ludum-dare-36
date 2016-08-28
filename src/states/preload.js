@@ -6,7 +6,7 @@ class Preload {
 
     this.loadingText = game.add.text(32, 32, 'Loading...', {fill: '#fff'});
 
-    game.load.image('player', '/assets/entities/player.png');
+    game.load.spritesheet('player', '/assets/entities/player/player.png', 34, 31);
     game.load.image('artifact', '/assets/entities/artifact.png');
     game.load.image('bullet', '/assets/entities/bullet.png');
     game.load.image('platform', '/assets/platforms/platform.png');

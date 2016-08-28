@@ -83,6 +83,14 @@ class Play {
     }
   }
 
+  render() {
+    if (this.controls.left.isDown || this.controls.right.isDown) {
+      this.player.animations.play('run', 12, true);
+    } else {
+      this.player.animations.play('idle', 2, true);
+    }
+  }
+
   damagePlayer() {
     this.player.health -= 2;
   }
