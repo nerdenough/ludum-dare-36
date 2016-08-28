@@ -10,13 +10,14 @@ class Player extends Phaser.Sprite {
     // Sprite
     this.animations.add('idle', [0, 1], true);
     this.animations.add('run', [5, 6, 7, 8], true);
-    this.anchor.setTo(0.5);
+    this.anchor.setTo(0.4);
     this.scale.setTo(this.sf);
 
     // Physics
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.body.gravity.y = 4000;
     this.body.collideWorldBounds = true;
+    this.body.setSize(16, 30, 2, 1);
   }
 
   update() {
