@@ -6,7 +6,7 @@ class Preload {
 
     this.loadingText = game.add.text(32, 32, 'Loading...', {fill: '#fff'});
 
-    // TODO: Load assets
+    game.load.image('player', '/assets/player/player.png');
 
     game.load.start();
   }
