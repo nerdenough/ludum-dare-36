@@ -5,10 +5,11 @@ class Player extends Phaser.Sprite {
     this.health = 100;
     this.alive = true;
     this.velX = 500;
+    this.sf = 3;
 
     // Sprite
     this.anchor.setTo(0.5);
-    this.scale.setTo(1);
+    this.scale.setTo(this.sf);
 
     // Physics
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
@@ -24,10 +25,12 @@ class Player extends Phaser.Sprite {
 
   moveLeft() {
     this.body.velocity.x = -this.velX;
+    this.scale.x = this.sf;
   }
 
   moveRight() {
     this.body.velocity.x = this.velX;
+    this.scale.x = -this.sf;
   }
 
   stop() {
@@ -36,7 +39,7 @@ class Player extends Phaser.Sprite {
 
   jump() {
     if (this.body.touching.down || this.body.onFloor()) {
-      this.body.velocity.y = -1200;
+      this.body.velocity.y = -1000;
     }
   }
 }

@@ -1,5 +1,8 @@
 class Play {
   create() {
+    // Map
+    this.initMap();
+
     // Platforms
     this.platform = new Platform(game, game.world.centerX, 600, 'platform');
     this.game.add.existing(this.platform);
@@ -25,6 +28,7 @@ class Play {
 
     // Physics engine
     game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.physics.arcade.TILE_BIAS = 64;
 
     // Controls
     this.controls = {
@@ -35,7 +39,22 @@ class Play {
     };
   }
 
+  initMap() {
+    // Map
+    this.map = game.add.tilemap('map');
+    this.map.addTilesetImage('tiles', 'tiles');
+
+    // Layers
+    this.layer = this.map.createLayer(0);
+    this.layer.setScale(2);
+    this.layer.resizeWorld();
+
+    // Collisions
+    this.map.setCollision(0);
+  }
+
   update() {
+    game.physics.arcade.collide(this.player, this.layer);
     this.player.stop();
 
     if (this.player.alive) {
@@ -66,6 +85,5 @@ class Play {
 
   damagePlayer() {
     this.player.health -= 2;
-    console.log(this.player.health);
   }
 }
