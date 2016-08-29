@@ -68,4 +68,13 @@ class Player extends Phaser.Sprite {
     this.flashTimer = this.game.time.now + 1000;
     this.tint = 0xff808080;
   }
+
+  takeDamage(player, bullet) {
+    bullet.kill();
+
+    if (!player.flashing) {
+      player.flash();
+      player.health -= 10;
+    }
+  }
 }

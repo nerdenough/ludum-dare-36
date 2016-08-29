@@ -110,8 +110,9 @@ class Play {
     }
 
     if (this.player.alive) {
-      game.physics.arcade.overlap(this.artifact.bullets, this.player,
-        this.damagePlayer, null, this);
+      this.artifact.checkCollision(this.player);
+      this.artifactLeftModule.checkCollision(this.player);
+      this.artifactRightModule.checkCollision(this.player);
 
       if (this.controls.left.isDown) {
         this.player.moveLeft();
@@ -141,15 +142,6 @@ class Play {
     } else if (!this.player.deathAnimationPlayed) {
       this.player.deathAnimationPlayed = true;
       this.player.animations.play('death', 12, false);
-    }
-  }
-
-  damagePlayer(player, bullet) {
-    bullet.kill();
-
-    if (!player.flashing) {
-      player.flash();
-      this.player.health -= 10;
     }
   }
 }

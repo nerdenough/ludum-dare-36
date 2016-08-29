@@ -46,4 +46,9 @@ class Artifact extends Phaser.Sprite {
   shoot(player) {
     this.weapons[this.activeWeapon].fire(this);
   }
+
+  checkCollision(player) {
+    game.physics.arcade.overlap(this.weapons[this.activeWeapon], player,
+      player.takeDamage, null, this);
+  }
 }
