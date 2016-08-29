@@ -9,6 +9,7 @@ class ArtifactModule extends Phaser.Sprite {
     this.velY = this.game.rnd.integerInRange(300, 400);
     this.offX = this.game.rnd.integerInRange(200, 300);
     this.offY = this.game.rnd.integerInRange(-40, 40);
+    this.alive = true;
 
     // Sprite
     this.anchor.setTo(0.5);
@@ -28,23 +29,27 @@ class ArtifactModule extends Phaser.Sprite {
   }
 
   moveTo(player) {
-    let leftSide = this.scale.x > 0;
-    let offset = leftSide ? -this.offX : this.offX;
+    if (this.alive) {
+      let leftSide = this.scale.x > 0;
+      let offset = leftSide ? -this.offX : this.offX;
 
-    if (player.x - 20 + offset > this.x) {
-      this.body.velocity.x = this.velX;
-    } else if (player.x + 20 + offset < this.x) {
-      this.body.velocity.x = -this.velX;
-    } else {
-      this.body.velocity.x = 0;
-    }
+      if (player.x - 20 + offset > this.x) {
+        this.body.velocity.x = this.velX;
+      } else if (player.x + 20 + offset < this.x) {
+        this.body.velocity.x = -this.velX;
+      } else {
+        this.body.velocity.x = 0;
+      }
 
-    if (player.y - 280 + this.offY < this.y) {
-      this.body.velocity.y = -this.velY;
-    } else if (player.y - 320 + this.offY > this.y) {
-      this.body.velocity.y = this.velY;
+      if (player.y - 280 + this.offY < this.y) {
+        this.body.velocity.y = -this.velY;
+      } else if (player.y - 320 + this.offY > this.y) {
+        this.body.velocity.y = this.velY;
+      } else {
+        this.body.velocity.y = 0;
+      }
     } else {
-      this.body.velocity.y = 0;
+      this.body.velocity.y = 300;
     }
   }
 

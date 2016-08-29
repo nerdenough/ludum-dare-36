@@ -134,6 +134,14 @@ class Play {
     this.artifactLeftModule.moveTo(this.player);
     this.artifactRightModule.moveTo(this.player);
 
+    this.activators.forEach((activator) => {
+      if (activator.deactivated) {
+        this.artifact.alive = false;
+        this.artifactLeftModule.alive = false;
+        this.artifactRightModule.alive = false;
+      }
+    });
+
     if (!this.controls.down.isDown || !this.controls.spacebar.isDown) {
       game.physics.arcade.collide(this.player, this.platforms);
       game.physics.arcade.collide(this.player, this.movingPlatforms);
@@ -194,6 +202,7 @@ class Play {
   }
 
   win(player, activator) {
+    activator.deactivated = true;
     activator.loadTexture('deactivated');
   }
 }

@@ -5,6 +5,7 @@ class Artifact extends Phaser.Sprite {
     this.bulletDelay = 200;
     this.lastBullet = 0;
     this.activeWeapon = 0;
+    this.alive = true;
 
     // Sprite
     this.anchor.setTo(0.5);
@@ -26,20 +27,24 @@ class Artifact extends Phaser.Sprite {
   }
 
   moveTo(player) {
-    if (player.x - 20 > this.x) {
-      this.body.velocity.x = 200;
-    } else if (player.x + 20 < this.x) {
-      this.body.velocity.x = -200;
-    } else {
-      this.body.velocity.x = 0;
-    }
+    if (this.alive) {
+      if (player.x - 20 > this.x) {
+        this.body.velocity.x = 200;
+      } else if (player.x + 20 < this.x) {
+        this.body.velocity.x = -200;
+      } else {
+        this.body.velocity.x = 0;
+      }
 
-    if (player.y - 280 < this.y) {
-      this.body.velocity.y = -400;
-    } else if (player.y - 320 > this.y) {
-      this.body.velocity.y = 400;
+      if (player.y - 280 < this.y) {
+        this.body.velocity.y = -400;
+      } else if (player.y - 320 > this.y) {
+        this.body.velocity.y = 400;
+      } else {
+        this.body.velocity.y = 0;
+      }
     } else {
-      this.body.velocity.y = 0;
+      this.body.velocity.y = 400;
     }
   }
 
