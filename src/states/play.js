@@ -84,8 +84,11 @@ class Play {
 
   update() {
     game.physics.arcade.collide(this.player, this.layer);
-    game.physics.arcade.collide(this.player, this.platforms);
     this.player.stop();
+
+    if (!this.controls.down.isDown || !this.controls.spacebar.isDown) {
+      game.physics.arcade.collide(this.player, this.platforms);
+    }
 
     if (this.player.alive) {
       game.physics.arcade.overlap(this.artifact.bullets, this.player,
