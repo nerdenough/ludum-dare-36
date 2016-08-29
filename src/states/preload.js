@@ -22,6 +22,9 @@ class Preload {
     game.load.image('platform', '/assets/platforms/platform.png');
     game.load.image('platform-left', '/assets/platforms/platform-left.png');
     game.load.image('platform-right', '/assets/platforms/platform-right.png');
+    game.load.image('moving-platform-right', '/assets/platforms/moving-platform-right.png');
+    game.load.image('moving-platform-left', '/assets/platforms/moving-platform-left.png');
+    game.load.image('moving-platform', '/assets/platforms/moving-platform.png');
 
     // HUD
     game.load.image('avatar', '/assets/hud/avatar.png');

@@ -79,13 +79,22 @@ class Play {
   initPlatforms() {
     this.platforms = game.add.group();
     this.platforms.enableBody = true;
+    this.movingPlatforms = game.add.group();
+    this.movingPlatforms.enableBody = true;
 
-    this.map.createFromObjects('platforms', 10, 'platform-left', 0, true,
-      false, this.platforms);
     this.map.createFromObjects('platforms', 11, 'platform', 0, true,
+      false, this.platforms);
+    this.map.createFromObjects('platforms', 10, 'platform-left', 0, true,
       false, this.platforms);
     this.map.createFromObjects('platforms', 12, 'platform-right', 0, true,
       false, this.platforms);
+
+    this.map.createFromObjects('platforms', 19, 'moving-platform', 0, true,
+      false, this.movingPlatforms);
+    this.map.createFromObjects('platforms', 18, 'moving-platform-left', 0, true,
+      false, this.movingPlatforms);
+    this.map.createFromObjects('platforms', 20, 'moving-platform-right', 0, true,
+      false, this.movingPlatforms);
 
     this.platforms.scale.setTo(2);
     this.platforms.setAll('body.immovable', true);
@@ -94,6 +103,17 @@ class Play {
     this.platforms.setAll('body.checkCollision.right', false);
     this.platforms.forEach((platform) => {
       platform.body.setSize(32, 8, 0, 2);
+    });
+
+    this.movingPlatforms.scale.setTo(2);
+    this.movingPlatforms.setAll('body.immovable', true);
+    this.movingPlatforms.setAll('body.checkCollision.down', false);
+    this.movingPlatforms.setAll('body.checkCollision.left', false);
+    this.movingPlatforms.setAll('body.checkCollision.right', false);
+    this.movingPlatforms.forEach((platform) => {
+      platform.body.setSize(32, 8, 0, 2);
+      platform.originY = platform.y;
+      platform.movingDown = true;
     });
   }
 
@@ -107,7 +127,24 @@ class Play {
 
     if (!this.controls.down.isDown || !this.controls.spacebar.isDown) {
       game.physics.arcade.collide(this.player, this.platforms);
+      game.physics.arcade.collide(this.player, this.movingPlatforms);
     }
+
+    this.movingPlatforms.forEach((platform) => {
+      if (platform.movingDown) {
+        platform.body.velocity.y = 50;
+
+        if (platform.y > platform.originY + 32) {
+          platform.movingDown = false;
+        }
+      } else {
+        platform.body.velocity.y = -50;
+
+        if (platform.y < platform.originY - 32) {
+          platform.movingDown = true;
+        }
+      }
+    });
 
     if (this.player.alive) {
       this.artifact.checkCollision(this.player);
