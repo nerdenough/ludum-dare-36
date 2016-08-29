@@ -1,5 +1,8 @@
 class Play {
   create() {
+    this.background = game.add.sprite(0, 0, 'background');
+    this.background.scale.setTo(2);
+
     // Map
     this.initMap();
     this.initPlatforms();
@@ -78,7 +81,7 @@ class Play {
     this.platforms.setAll('body.checkCollision.left', false);
     this.platforms.setAll('body.checkCollision.right', false);
     this.platforms.forEach((platform) => {
-      platform.body.setSize(32, 8, 0, 28);
+      platform.body.setSize(32, 8, 0, 2);
     });
   }
 

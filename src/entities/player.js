@@ -16,24 +16,16 @@ class Player extends Phaser.Sprite {
     this.animations.add('death', [10, 11, 12, 13, 14], true);
     this.anchor.setTo(0.4);
     this.scale.setTo(-this.sf, this.sf);
-    this.createBullets();
 
     // Physics
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.body.gravity.y = 4000;
     this.body.collideWorldBounds = true;
     this.body.setSize(16, 30, 2, 1);
-  }
 
-  createBullets() {
-    this.bullets = this.game.add.group();
-    this.bullets.enableBody = true;
-    this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-    this.bullets.createMultiple(30, 'bullet');
-    this.bullets.setAll('anchor.x', 0.5);
-    this.bullets.setAll('anchor.y', 1);
-    this.bullets.setAll('outOfBoundsKill', true);
-    this.bullets.setAll('checkWorldBounds', true);
+    this.jumpSound = game.add.audio('jump');
+
+    this.weapon = new SingleBullet(this.game);
   }
 
   update() {
@@ -74,16 +66,13 @@ class Player extends Phaser.Sprite {
 
   jump() {
     if (this.body.touching.down || this.body.onFloor()) {
-      this.body.velocity.y = -1400;
+      this.body.velocity.y = -1200;
+      this.jumpSound.play();
     }
   }
 
   shoot() {
-    let bullet = this.bullets.getFirstExists(false);
-    if (bullet) {
-      bullet.reset(this.body.x + 32, this.body.y + 32);
-      this.game.physics.arcade.moveToPointer(bullet, 800);
-    }
+    this.weapon.fireToPointer(this);
   }
 
   flash() {

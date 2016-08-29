@@ -9,8 +9,10 @@ class Preload {
     // Sprites
     game.load.spritesheet('player', '/assets/entities/player/player.png', 34, 31);
     game.load.image('artifact', '/assets/entities/artifact.png');
-    game.load.image('bullet', '/assets/entities/bullet.png');
+    game.load.image('bullet', '/assets/entities/bullets/bullet.png');
+    game.load.image('beam', '/assets/entities/bullets/beam.png');
     game.load.image('platform', '/assets/platforms/platform.png');
+    game.load.image('background', '/assets/background.png');
 
     // Map
     game.load.tilemap('map', '/assets/map/map.json', null,
@@ -22,6 +24,10 @@ class Preload {
 
     // HUD
     game.load.image('avatar', '/assets/hud/avatar.png');
+
+    // Audio
+    game.load.audio('jump', '/assets/sounds/jump.wav');
+    game.load.audio('shoot', '/assets/sounds/shoot.wav');
 
     game.load.start();
   }

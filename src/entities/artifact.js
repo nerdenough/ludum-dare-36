@@ -9,7 +9,6 @@ class Artifact extends Phaser.Sprite {
     // Sprite
     this.anchor.setTo(0.5);
     this.scale.setTo(1);
-    this.createBullets();
 
     // Physics
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
@@ -21,17 +20,7 @@ class Artifact extends Phaser.Sprite {
   initWeapons() {
     this.weapons = [];
     this.weapons.push(new SingleBullet(this.game));
-  }
-
-  createBullets() {
-    this.bullets = this.game.add.group();
-    this.bullets.enableBody = true;
-    this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-    this.bullets.createMultiple(30, 'bullet');
-    this.bullets.setAll('anchor.x', 0.5);
-    this.bullets.setAll('anchor.y', 1);
-    this.bullets.setAll('outOfBoundsKill', true);
-    this.bullets.setAll('checkWorldBounds', true);
+    this.weapons.push(new LaserBeam(this.game));
   }
 
   shoot(player) {
