@@ -7,8 +7,8 @@ import sourcemaps from 'gulp-sourcemaps';
 import concat from 'gulp-concat';
 
 const files = [
-  './src/objects/*.js',
   './src/entities/*.js',
+  './src/weapons/*.js',
   './src/hud/*.js',
   './src/states/*.js',
   './src/game.js'

@@ -4,6 +4,7 @@ class Artifact extends Phaser.Sprite {
     this.game = game;
     this.bulletDelay = 200;
     this.lastBullet = 0;
+    this.activeWeapon = 0;
 
     // Sprite
     this.anchor.setTo(0.5);
@@ -13,6 +14,13 @@ class Artifact extends Phaser.Sprite {
     // Physics
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.body.collideWorldBounds = true;
+
+    this.initWeapons();
+  }
+
+  initWeapons() {
+    this.weapons = [];
+    this.weapons.push(new SingleBullet(this.game));
   }
 
   createBullets() {
@@ -27,10 +35,6 @@ class Artifact extends Phaser.Sprite {
   }
 
   shoot(player) {
-    let bullet = this.bullets.getFirstExists(false);
-    if (bullet) {
-      bullet.reset(this.body.x + 32, this.body.y + 32);
-      this.game.physics.arcade.moveToObject(bullet, player, 800);
-    }
+    this.weapons[this.activeWeapon].fire(this);
   }
 }
