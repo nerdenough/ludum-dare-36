@@ -35,29 +35,21 @@ class Player extends Phaser.Sprite {
     }
 
     if (this.alive) {
-      if (this.game.input.activePointer.isDown) {
-        this.shoot();
-      }
-
       if (this.flashing && this.game.time.now > this.flashTimer) {
         this.flashing = false;
         this.tint = 0xffffffff;
-      }
-
-      if (this.game.input.x < this.x - this.game.camera.x) {
-        this.scale.x = this.sf;
-      } else {
-        this.scale.x = -this.sf;
       }
     }
   }
 
   moveLeft() {
     this.body.velocity.x = -this.velX;
+    this.scale.x = this.sf;
   }
 
   moveRight() {
     this.body.velocity.x = this.velX;
+    this.scale.x = -this.sf;
   }
 
   stop() {
@@ -69,10 +61,6 @@ class Player extends Phaser.Sprite {
       this.body.velocity.y = -1200;
       this.jumpSound.play();
     }
-  }
-
-  shoot() {
-    this.weapon.fireToPointer(this);
   }
 
   flash() {
