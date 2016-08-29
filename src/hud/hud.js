@@ -3,7 +3,11 @@ class Hud {
     this.game = game;
     this.player = player;
 
-    this.avatar = this.game.add.sprite(32, 32, 'avatar');
-    this.avatar.fixedToCamera = true;
+    this.hp = this.game.add.text(32, 32, 'HP: 100', {fill: '#fff'});
+    this.hp.fixedToCamera = true;
+  }
+
+  update() {
+    this.hp.setText('HP: ' + this.player.health);
   }
 }

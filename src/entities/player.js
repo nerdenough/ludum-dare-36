@@ -74,7 +74,7 @@ class Player extends Phaser.Sprite {
 
     if (!player.flashing) {
       player.flash();
-      player.health -= 0;
+      player.health -= 10;
     }
   }
 }

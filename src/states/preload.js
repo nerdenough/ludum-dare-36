@@ -30,6 +30,8 @@ class Preload {
 
     // HUD
     game.load.image('avatar', '/assets/hud/avatar.png');
+    game.load.image('winner', '/assets/screens/winner.png');
+    game.load.image('gameover', '/assets/screens/gameover.png');
 
     // Audio
     game.load.audio('jump', '/assets/sounds/jump.wav');

@@ -58,7 +58,8 @@ class Play {
       left: this.input.keyboard.addKey(Phaser.Keyboard.A),
       right: this.input.keyboard.addKey(Phaser.Keyboard.D),
       down: this.input.keyboard.addKey(Phaser.Keyboard.S),
-      spacebar: this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+      spacebar: this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
+      enter: this.input.keyboard.addKey(Phaser.Keyboard.ENTER)
     };
   }
 
@@ -124,6 +125,13 @@ class Play {
     this.activators.scale.setTo(2);
     this.activators.setAll('body.immovable', true);
     this.activators.setAll('activated', true);
+
+    this.winner = game.add.sprite(0, 0, 'winner');
+    this.gameover = game.add.sprite(0, 0, 'gameover');
+    this.winner.fixedToCamera = true;
+    this.gameover.fixedToCamera = true;
+    this.winner.visible = false;
+    this.gameover.visible = false;
   }
 
   update() {
@@ -139,6 +147,8 @@ class Play {
         this.artifact.alive = false;
         this.artifactLeftModule.alive = false;
         this.artifactRightModule.alive = false;
+        this.winner.visible = true;
+        this.won = true;
       }
     });
 
@@ -163,7 +173,7 @@ class Play {
       }
     });
 
-    if (this.player.alive) {
+    if (this.player.alive && !this.won) {
       this.artifact.checkCollision(this.player);
       this.artifactLeftModule.checkCollision(this.player);
       this.artifactRightModule.checkCollision(this.player);
@@ -183,7 +193,13 @@ class Play {
       this.artifact.shoot(this.player);
       this.artifactLeftModule.shoot(this.player);
       this.artifactRightModule.shoot(this.player);
+    } else {
+      if (this.controls.enter.isDown) {
+        this.won = false;
+        this.game.state.start('play');
+      }
     }
+    this.hud.update();
 
     this.game.physics.arcade.collide(this.player, this.activators, this.win);
   }
@@ -198,6 +214,8 @@ class Play {
     } else if (!this.player.deathAnimationPlayed) {
       this.player.deathAnimationPlayed = true;
       this.player.animations.play('death', 12, false);
+    } else {
+      this.gameover.visible = true;
     }
   }
 
