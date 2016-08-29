@@ -23,7 +23,7 @@ class Player extends Phaser.Sprite {
     this.body.collideWorldBounds = true;
     this.body.setSize(16, 30, 2, 1);
 
-    this.jumpSound = game.add.audio('jump', 0.2);
+    this.jumpSound = game.add.audio('jump', 0.05);
 
     this.weapon = new SingleBullet(this.game);
   }
