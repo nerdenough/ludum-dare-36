@@ -12,7 +12,7 @@ class SingleBullet extends Phaser.Group {
       this.add(new Bullet(game, 'bullet'), true);
     }
 
-    this.shoot = this.game.add.audio('shoot');
+    this.shoot = this.game.add.audio('shoot', 0.2);
   }
 
   fire(source) {
