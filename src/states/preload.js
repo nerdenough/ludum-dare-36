@@ -9,6 +9,7 @@ class Preload {
     // Sprites
     game.load.spritesheet('player', '/assets/entities/player/player.png', 34, 31);
     game.load.spritesheet('artifact', '/assets/entities/artifact/artifact.png', 41, 34);
+    game.load.image('artifact-module', '/assets/entities/artifact/artifact-module.png');
     game.load.image('bullet', '/assets/entities/bullets/bullet.png');
     game.load.image('beam', '/assets/entities/bullets/beam.png');
     game.load.image('platform', '/assets/platforms/platform.png');

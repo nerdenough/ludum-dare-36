@@ -6,7 +6,7 @@ class SingleBullet extends Phaser.Group {
 
     this.nextFire = 0;
     this.bulletSpeed = 800;
-    this.fireRate = 300;
+    this.fireRate = 1000;
 
     for (let i = 0; i < 64; i++) {
       this.add(new Bullet(game, 'bullet'), true);

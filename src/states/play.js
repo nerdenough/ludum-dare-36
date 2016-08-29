@@ -21,11 +21,23 @@ class Play {
     let artifactConfig = {
       game: game,
       x: game.world.centerX,
-      y: game.world.height - 700,
+      y: game.world.height - 1000,
       asset: 'artifact'
     };
     this.artifact = new Artifact(artifactConfig);
     this.game.add.existing(this.artifact);
+
+    let artifactModuleConfig = {
+      game: game,
+      x: game.world.centerX,
+      y: game.world.height - 1100,
+      asset: 'artifact-module'
+    };
+    this.artifactLeftModule = new ArtifactModule(artifactModuleConfig);
+    this.artifactRightModule = new ArtifactModule(artifactModuleConfig);
+    this.artifactRightModule.scale.x = -4;
+    this.game.add.existing(this.artifactLeftModule);
+    this.game.add.existing(this.artifactRightModule);
 
     // HUD
     let hudConfig = {
@@ -90,6 +102,8 @@ class Play {
     this.player.stop();
 
     this.artifact.moveTo(this.player);
+    this.artifactLeftModule.moveTo(this.player);
+    this.artifactRightModule.moveTo(this.player);
 
     if (!this.controls.down.isDown || !this.controls.spacebar.isDown) {
       game.physics.arcade.collide(this.player, this.platforms);
@@ -111,11 +125,9 @@ class Play {
         this.player.jump();
       }
 
-      if (this.game.time.now > this.artifact.lastBullet) {
-        this.artifact.lastBullet = this.game.time.now
-          + this.artifact.bulletDelay;
-        this.artifact.shoot(this.player);
-      }
+      this.artifact.shoot(this.player);
+      this.artifactLeftModule.shoot(this.player);
+      this.artifactRightModule.shoot(this.player);
     }
   }
 
