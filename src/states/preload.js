@@ -16,6 +16,9 @@ class Preload {
     game.load.tilemap('map', '/assets/map/map.json', null,
       Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', '/assets/map/tiles.png');
+    game.load.image('platform', '/assets/platforms/platform.png');
+    game.load.image('platform-left', '/assets/platforms/platform-left.png');
+    game.load.image('platform-right', '/assets/platforms/platform-right.png');
 
     // HUD
     game.load.image('avatar', '/assets/hud/avatar.png');

@@ -2,10 +2,7 @@ class Play {
   create() {
     // Map
     this.initMap();
-
-    // Platforms
-    this.platform = new Platform(game, game.world.centerX, 600, 'platform');
-    this.game.add.existing(this.platform);
+    this.initPlatforms();
 
     // Player
     let playerConfig = {
@@ -64,12 +61,33 @@ class Play {
     this.map.setCollisionBetween(1, 4);
   }
 
+  initPlatforms() {
+    this.platforms = game.add.group();
+    this.platforms.enableBody = true;
+
+    this.map.createFromObjects('platforms', 10, 'platform-left', 0, true,
+      false, this.platforms);
+    this.map.createFromObjects('platforms', 11, 'platform', 0, true,
+      false, this.platforms);
+    this.map.createFromObjects('platforms', 12, 'platform-right', 0, true,
+      false, this.platforms);
+
+    this.platforms.scale.setTo(2);
+    this.platforms.setAll('body.immovable', true);
+    this.platforms.setAll('body.checkCollision.down', false);
+    this.platforms.setAll('body.checkCollision.left', false);
+    this.platforms.setAll('body.checkCollision.right', false);
+    this.platforms.forEach((platform) => {
+      platform.body.setSize(32, 8, 0, 28);
+    });
+  }
+
   update() {
     game.physics.arcade.collide(this.player, this.layer);
+    game.physics.arcade.collide(this.player, this.platforms);
     this.player.stop();
 
     if (this.player.alive) {
-      game.physics.arcade.collide(this.player, this.platform);
       game.physics.arcade.overlap(this.artifact.bullets, this.player,
         this.damagePlayer, null, this);
 
