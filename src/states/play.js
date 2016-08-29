@@ -81,6 +81,8 @@ class Play {
     this.platforms.enableBody = true;
     this.movingPlatforms = game.add.group();
     this.movingPlatforms.enableBody = true;
+    this.activators = game.add.group();
+    this.activators.enableBody = true;
 
     this.map.createFromObjects('platforms', 11, 'platform', 0, true,
       false, this.platforms);
@@ -95,6 +97,9 @@ class Play {
       false, this.movingPlatforms);
     this.map.createFromObjects('platforms', 20, 'moving-platform-right', 0, true,
       false, this.movingPlatforms);
+
+    this.map.createFromObjects('platforms', 17, 'activated', 0, true,
+      false, this.activators);
 
     this.platforms.scale.setTo(2);
     this.platforms.setAll('body.immovable', true);
@@ -115,6 +120,10 @@ class Play {
       platform.originY = platform.y;
       platform.movingDown = true;
     });
+
+    this.activators.scale.setTo(2);
+    this.activators.setAll('body.immovable', true);
+    this.activators.setAll('activated', true);
   }
 
   update() {
@@ -167,6 +176,8 @@ class Play {
       this.artifactLeftModule.shoot(this.player);
       this.artifactRightModule.shoot(this.player);
     }
+
+    this.game.physics.arcade.collide(this.player, this.activators, this.win);
   }
 
   render() {
@@ -180,5 +191,9 @@ class Play {
       this.player.deathAnimationPlayed = true;
       this.player.animations.play('death', 12, false);
     }
+  }
+
+  win(player, activator) {
+    activator.loadTexture('deactivated');
   }
 }

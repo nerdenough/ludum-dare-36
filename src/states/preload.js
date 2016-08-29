@@ -25,6 +25,8 @@ class Preload {
     game.load.image('moving-platform-right', '/assets/platforms/moving-platform-right.png');
     game.load.image('moving-platform-left', '/assets/platforms/moving-platform-left.png');
     game.load.image('moving-platform', '/assets/platforms/moving-platform.png');
+    game.load.image('activated', '/assets/objects/activator-activated.png');
+    game.load.image('deactivated', '/assets/objects/activator-deactivated.png');
 
     // HUD
     game.load.image('avatar', '/assets/hud/avatar.png');
